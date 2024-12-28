@@ -26,6 +26,14 @@ if (! function_exists('abort')) {
     }
 }
 
+if (! function_exists('authorize')) {
+    function authorize(bool $condition, Response $statusCode = Response::Forbidden): void {
+        if (! $condition) {
+            abort($statusCode);
+        }
+    }
+}
+
 if (! function_exists('routeToController')) {
     function routeToController(string $uri, array $routes): void {
         array_key_exists($uri, $routes)
