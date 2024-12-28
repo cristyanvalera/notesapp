@@ -27,6 +27,27 @@ class Database
 
         $this->statement->execute($params);
 
-        return $stmt;
+        return $this;
+    }
+
+    public function find()
+    {
+        return $this->statement->fetch();
+    }
+
+    public function all()
+    {
+        return $this->statement->fetchAll();
+    }
+
+    public function findOrFail(): array
+    {
+        $result = $this->find();
+
+        if (! $result) {
+            abort();
+        }
+
+        return $result;
     }
 }
