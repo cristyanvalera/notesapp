@@ -3,6 +3,7 @@
 class Database
 {
     public PDO $connection;
+    public PDOStatement|false $statement;
 
     public function __construct(object|array $config)
     {
@@ -20,11 +21,11 @@ class Database
         ]);
     }
 
-    public function query(string $query, array $params = []): PDOStatement|false
+    public function query(string $query, array $params = []): self
     {
-        $stmt = $this->connection->prepare($query);
+        $this->statement = $this->connection->prepare($query);
 
-        $stmt->execute($params);
+        $this->statement->execute($params);
 
         return $stmt;
     }
