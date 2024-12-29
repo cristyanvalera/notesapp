@@ -7,4 +7,4 @@ $notes = $db->query('select * from notes')->all();
 
 $title = 'My Notes';
 
-require 'views/notes.view.php';
+require 'views/notes/index.view.php';

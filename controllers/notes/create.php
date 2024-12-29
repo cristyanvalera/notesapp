@@ -24,4 +24,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $title = 'Create Note';
 
-require 'views/notes-create.php';
+require 'views/notes/create.view.php';
