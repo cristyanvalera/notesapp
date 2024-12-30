@@ -4,9 +4,11 @@ $routes = require(base_path('routes.php'));
 
 if (! function_exists('abort')) {
     function abort(Response $code = Response::PageNotFound): never {
-        http_response_code($code->value);
+        $code = $code->value;
 
-        require "views/{$code->value}.php";
+        http_response_code($code);
+
+        require base_path("views/{$code}.php");
 
         die();
     }
