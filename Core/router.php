@@ -1,5 +1,7 @@
 <?php
 
+use Core\Enums\Response;
+
 $routes = require(base_path('routes.php'));
 
 if (! function_exists('abort')) {

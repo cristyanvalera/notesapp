@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Core;
+
 class Validator
 {
     public static function text(string $value, int $min = 1, int|float $max = INF): bool

@@ -1,5 +1,7 @@
 <?php
 
+namespace Core\Enums;
+
 enum Response: int
 {
     case PageNotFound = 404;

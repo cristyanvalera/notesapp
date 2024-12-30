@@ -2,13 +2,12 @@
 
 const BASE_PATH = __DIR__ . '/../';
 
-require BASE_PATH . '/core/functions.php';
+require BASE_PATH . '/Core/functions.php';
 
-spl_autoload_register(function (string $class) {
-    require base_path("core/{$class}.php");
+spl_autoload_register(function (string $class): void {
+    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
+
+    require base_path("{$class}.php");
 });
 
-require base_path('core/enums/Response.php');
-require base_path('core/router.php');
-
-
+require base_path('Core/router.php');
