@@ -1,6 +1,6 @@
 <?php
 
-$routes = require('routes.php');
+$routes = require(base_path('routes.php'));
 
 if (! function_exists('abort')) {
     function abort(Response $code = Response::PageNotFound): never {
@@ -23,7 +23,7 @@ if (! function_exists('authorize')) {
 if (! function_exists('routeToController')) {
     function routeToController(string $uri, array $routes): void {
         array_key_exists($uri, $routes)
-            ? require $routes[$uri]
+            ? require base_path($routes[$uri])
             : abort();
     }
 }
