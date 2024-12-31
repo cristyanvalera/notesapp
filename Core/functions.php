@@ -1,5 +1,8 @@
 <?php
 
+use Core\Enums\Response;
+use Core\Router;
+
 if (! function_exists('dd')) {
     function dd(mixed $value): never {
         echo "<pre>";
@@ -13,6 +16,14 @@ if (! function_exists('dd')) {
 if (! function_exists('urlIs')) {
     function urlIs(string $value): bool {
         return parse_url($_SERVER['REQUEST_URI'])['path'] === $value;
+    }
+}
+
+if (! function_exists('authorize')) {
+    function authorize(bool $condition, Response $statusCode = Response::Forbidden): void {
+        if (! $condition) {
+            Router::abort($statusCode);
+        }
     }
 }
 
