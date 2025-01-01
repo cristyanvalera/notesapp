@@ -2,8 +2,6 @@
 
 namespace Core;
 
-use Core\Enums\Response;
-
 class Router
 {
     protected iterable $routes = [];
@@ -36,22 +34,11 @@ class Router
             }
         }
 
-        $this->abort();
+        abort();
     }
 
     protected function add(string $method, string $uri, string $controller): void
     {
         $this->routes[] = compact('method', 'uri', 'controller');
-    }
-
-    public static function abort(Response $code = Response::PageNotFound): never
-    {
-        $code = $code->value;
-
-        http_response_code($code);
-
-        require base_path("views/{$code}.php");
-
-        die();
     }
 }

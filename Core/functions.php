@@ -13,6 +13,18 @@ if (! function_exists('dd')) {
     }
 }
 
+if (! function_exists('abort')) {
+    function abort(Response $code = Response::PageNotFound): never {
+        $code = $code->value;
+
+        http_response_code($code);
+
+        require base_path("views/{$code}.php");
+
+        die();
+    }
+}
+
 if (! function_exists('urlIs')) {
     function urlIs(string $value): bool {
         return parse_url($_SERVER['REQUEST_URI'])['path'] === $value;
@@ -22,7 +34,7 @@ if (! function_exists('urlIs')) {
 if (! function_exists('authorize')) {
     function authorize(bool $condition, Response $statusCode = Response::Forbidden): void {
         if (! $condition) {
-            Router::abort($statusCode);
+            abort($statusCode);
         }
     }
 }
