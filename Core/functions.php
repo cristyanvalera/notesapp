@@ -1,7 +1,6 @@
 <?php
 
 use Core\Enums\Response;
-use Core\Router;
 
 if (! function_exists('dd')) {
     function dd(mixed $value): never {
