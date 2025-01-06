@@ -9,7 +9,7 @@ class Middleware
         'guest' => Guest::class,
     ];
 
-    public static function resolve(?string $key = null)
+    public static function resolve(?string $key = null): void
     {
         if ($key === null) {
             return;
