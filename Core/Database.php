@@ -35,7 +35,7 @@ class Database
         return $this;
     }
 
-    public function find()
+    public function find(): mixed
     {
         return $this->statement->fetch();
     }
