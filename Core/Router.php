@@ -2,43 +2,63 @@
 
 namespace Core;
 
+use Core\Middleware\Middleware;
+
 class Router
 {
     protected iterable $routes = [];
 
-    public function get(string $uri, string $controller): void
+    protected function add(string $method, string $uri, string $controller): self
     {
-        $this->add('GET', $uri, $controller);
+        $this->routes[] = [
+            'method' => $method,
+            'uri' => $uri,
+            'controller' => $controller,
+            'middleware' => null,
+        ];
+
+        return $this;
     }
 
-    public function post(string $uri, string $controller): void
+    public function get(string $uri, string $controller): self
     {
-        $this->add('POST', $uri, $controller);
+        return $this->add('GET', $uri, $controller);
     }
 
-    public function delete(string $uri, string $controller): void
+    public function post(string $uri, string $controller): self
     {
-        $this->add('DELETE', $uri, $controller);
+        return $this->add('POST', $uri, $controller);
     }
 
-    public function put(string $uri, string $controller): void
+    public function delete(string $uri, string $controller): self
     {
-        $this->add('PUT', $uri, $controller);
+        return $this->add('DELETE', $uri, $controller);
+    }
+
+    public function put(string $uri, string $controller): self
+    {
+        return $this->add('PUT', $uri, $controller);
+    }
+
+    public function only(string $role): self
+    {
+        $this->routes[array_key_last($this->routes)]['middleware'] = $role;
+
+        return $this;
     }
 
     public function route(string $uri, string $method): mixed
     {
         foreach ($this->routes as $route) {
             if ($route['uri'] === $uri && $route['method'] === strtoupper($method)) {
+                if ($route['middleware']) {
+                    Middleware::resolve($route['middleware']);
+                }
+
                 return require base_path($route['controller']);
             }
         }
 
         abort();
-    }
-
-    protected function add(string $method, string $uri, string $controller): void
-    {
-        $this->routes[] = compact('method', 'uri', 'controller');
     }
 }
