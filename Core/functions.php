@@ -45,9 +45,33 @@ if (! function_exists('base_path')) {
 }
 
 if (! function_exists('view')) {
-    function view(string $path, array $attributes = []) {
+    function view(string $path, array $attributes = []): void {
         extract($attributes);
 
         require base_path('views/' . $path);
+    }
+}
+
+if (! function_exists('login')) {
+    function login(mixed $user): void {
+        $_SESSION['user'] = [
+            'email' => $user['email'],
+        ];
+
+        session_regenerate_id(true);
+    }
+}
+
+if (! function_exists('logout')) {
+    function logout(): void {
+        session_unset();
+
+        session_destroy();
+
+        session_write_close();
+
+        $params = session_get_cookie_params();
+
+        setcookie('PHPSESSID', expires_or_options: time() - 3600, path: $params['path'], domain: $params['domain']);
     }
 }
