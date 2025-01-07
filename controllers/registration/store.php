@@ -2,6 +2,9 @@
 
 use Core\{App, Database, Validator};
 
+/** @var Database */
+$db = App::resolve(Database::class);
+
 $email = $_POST['email'];
 $password = $_POST['password'];
 
@@ -21,9 +24,6 @@ if (! empty($errors)) {
     ]);
 }
 
-/** @var Database */
-$db = App::resolve(Database::class);
-
 $user = $db->query("select * from users where email = :email", [
     'email' => $email,
 ])->find();
@@ -32,12 +32,16 @@ if ($user) {
     header('location: /');
     die();
 } else {
-    $user = $db->query("insert into users (email, password) values (:email, :password)", [
+    $db->query("insert into users (email, password) values (:email, :password)", [
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT),
     ]);
 
-    $_SESSION['user'] = ['email' => $email];
+    $user = $db->query("select * from users where email = :email", [
+        'email' => $email,
+    ])->find();
+
+    login($user);
 
     header('location: /');
     die();

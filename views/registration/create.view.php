@@ -16,7 +16,7 @@
                     <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
 
                     <div class="mt-2">
-                        <input type="email" name="email" id="email" autocomplete="email" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        <input type="email" name="email" id="email" autocomplete="email" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="<?= $_POST['email'] ?? '' ?>">
 
                         <?php if (isset($errors['email'])): ?>
                             <p class="mt-2 text-xs text-red-500 font-bold"><?= $errors['email'] ?></p>
