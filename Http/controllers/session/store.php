@@ -14,10 +14,14 @@ if ($form->validate($email, $password)) {
         redirect('/');
     }
 
-    $form->addError('email', 'No matching account found for this credentials.');
+    $form->addError('email', 'No matching account found for this email.');
 }
 
 Session::flash('errors', value: $form->errors());
+
+Session::flash('old', [
+    'email' => $email,
+]);
 
 return redirect('/login');
 

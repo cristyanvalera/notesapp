@@ -6,9 +6,14 @@ class Authenticator
 {
     public function attempt(string $email, string $password): bool
     {
-        $user = App::resolve(Database::class)->query("select id, email, password from users where email = :email", [
-            'email' => $email,
-        ])->find();
+        /** @var Database */
+        $db = App::resolve(Database::class);
+
+        $user = $db
+            ->query("select id, email, password from users where email = :email", [
+                'email' => $email,
+            ])
+            ->find();
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
