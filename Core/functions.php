@@ -52,26 +52,10 @@ if (! function_exists('view')) {
     }
 }
 
-if (! function_exists('login')) {
-    function login(mixed $user): void {
-        $_SESSION['user'] = [
-            'email' => $user['email'],
-        ];
+if (! function_exists('redirect')) {
+    function redirect(string $path): void {
+        header("Location: {$path}");
 
-        session_regenerate_id(true);
-    }
-}
-
-if (! function_exists('logout')) {
-    function logout(): void {
-        session_unset();
-
-        session_destroy();
-
-        session_write_close();
-
-        $params = session_get_cookie_params();
-
-        setcookie('PHPSESSID', expires_or_options: time() - 3600, path: $params['path'], domain: $params['domain']);
+        die();
     }
 }
