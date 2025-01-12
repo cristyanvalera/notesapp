@@ -53,7 +53,7 @@ if (! function_exists('view')) {
 }
 
 if (! function_exists('redirect')) {
-    function redirect(string $path): void {
+    function redirect(string $path): never {
         header("Location: {$path}");
 
         die();
