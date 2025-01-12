@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Core;
 
@@ -60,5 +62,10 @@ class Router
         }
 
         abort();
+    }
+
+    public function previousUrl(): string
+    {
+        return $_SERVER['HTTP_REFERER'];
     }
 }

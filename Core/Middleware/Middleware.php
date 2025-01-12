@@ -15,6 +15,7 @@ class Middleware
             return;
         }
 
+        /** @var Auth|Guest */
         $middleware = static::MAP[$key] ?? false;
 
         if (! $middleware) {

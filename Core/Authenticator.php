@@ -6,9 +6,14 @@ class Authenticator
 {
     public function attempt(string $email, string $password): bool
     {
-        $user = App::resolve(Database::class)->query("select id, email, password from users where email = :email", [
-            'email' => $email,
-        ])->find();
+        /** @var Database */
+        $db = App::resolve(Database::class);
+
+        $user = $db
+            ->query("select id, email, password from users where email = :email", [
+                'email' => $email,
+            ])
+            ->find();
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
@@ -34,14 +39,6 @@ class Authenticator
 
     public function logout(): void
     {
-        session_unset();
-
-        session_destroy();
-
-        session_write_close();
-
-        $params = session_get_cookie_params();
-
-        setcookie('PHPSESSID', expires_or_options: time() - 3600, path: $params['path'], domain: $params['domain']);
+        Session::destroy();
     }
 }

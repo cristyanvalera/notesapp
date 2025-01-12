@@ -1,6 +1,6 @@
 <?php
 
-use Core\{App, Database, Validator};
+use Core\{App, Authenticator, Database, Validator};
 
 /** @var Database */
 $db = App::resolve(Database::class);
@@ -41,7 +41,7 @@ if ($user) {
         'email' => $email,
     ])->find();
 
-    login($user);
+    new Authenticator()->login($user);
 
     header('location: /');
     die();

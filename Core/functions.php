@@ -1,6 +1,6 @@
 <?php
 
-use Core\Enums\Response;
+use Core\{Enums\Response, Session};
 
 if (! function_exists('dd')) {
     function dd(mixed $value): never {
@@ -53,9 +53,15 @@ if (! function_exists('view')) {
 }
 
 if (! function_exists('redirect')) {
-    function redirect(string $path): void {
+    function redirect(string $path): never {
         header("Location: {$path}");
 
         die();
+    }
+}
+
+if (! function_exists('old')) {
+    function old(string $key, string $default = ''): mixed {
+        return Session::get('old')[$key] ?? $default;
     }
 }
