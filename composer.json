@@ -1,0 +1,16 @@
+{
+    "name": "cristyan/notesapp",
+    "authors": [
+        {
+            "name": "Cristyan Valera",
+            "email": "cristyan.valera.81@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Core\\": "Core/",
+            "Http\\": "Http/"
+        }
+    }
+}
